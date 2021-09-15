@@ -102,21 +102,21 @@ $wingetapps = @(
 	"hexchat",
 	"Github Desktop")
 
+# Chocolatey
+choco feature enable -n allowGlobalConfirmation
+choco install -y git -params '"/GitAndUnixToolsOnPath /WindowsTerminal"'
+foreach ($chocoapp in $chocoapps) {
+	choco install -y $chocoapp
+}
+
 # Scoop
 Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
-scoop install git
 git clone https://github.com/Sourav2005/win10scripts.git $HOME\Documents
 foreach ($bucket in $scoopbuckets) {
 	scoop bucket add $bucket
 }
 foreach ($scoopapp in $scoopapps) {
 	scoop install $scoopapp
-}
-
-# Chocolatey
-choco feature enable -n allowGlobalConfirmation
-foreach ($chocoapp in $chocoapps) {
-	choco install -y $chocoapp
 }
 
 # Winget
