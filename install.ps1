@@ -1,6 +1,6 @@
 # Useful variables
 $tools = 'D:\Tools'
-$win10 = "$HOME\Documents"
+$win10 = "$HOME\Documents\win10scripts"
 
 # Disable Windows Defender
 Add-MpPreference -exclusionpath "$tools\dControl"
@@ -189,7 +189,8 @@ Invoke-Expression $win10\scripts\Sophia\install.ps1
 reg import $HOME\scoop\apps\python\current\install-pep-514.reg
 Copy-Item "$win10\scripts\Hotkeys.ahk" "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 start-process -filepath D:\mpv-x86_64-20210404-git-dd86f19\installer\mpv-install.bat -verb runas
-start-process -FilePath "$tools\jarfix.exe" -argumentlist "/S" -wait
+Invoke-WebRequest "https://johann.loefflmann.net/downloads/jarfix.exe" -OutFile $env:TEMP\jarfix.exe
+start-process -FilePath "$env:TEMP\jarfix.exe" -argumentlist "/S" -wait
 mkdir $HOME\.config\rclone -Force ; Copy-Item $win10\scripts\rclone.conf $HOME\.config\rclone\rclone.conf -Force
 Copy-Item -R "D:\qbitbal\local\qBittorrent" $HOME\AppData\Local\
 Copy-Item -R "D:\qbitbal\roaming\qBittorrent" $HOME\AppData\Roaming\
@@ -211,7 +212,7 @@ Copy-Item "D:\Games\Project_IGI_RIP\PC\IGI.exe.lnk" "C:\ProgramData\Microsoft\Wi
 Copy-Item "D:\Games\Max Payne duology\Max Payne\MaxPayne.exe.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Max Payne.lnk"
 Copy-Item "D:\Games\Max Payne duology\Max Payne 2 The Fall of Max Payne\MaxPayne2.exe.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Max Payne 2.lnk"
 Copy-Item "D:\Games\The House of the Dead 2\House of the Dead 2.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\House of the Dead 2.lnk"
-reg import "$tools\irc.reg"
+reg import "$win10\scripts\irc.reg"
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
 $restart = Read-Host "Do you want to restart your pc?"
