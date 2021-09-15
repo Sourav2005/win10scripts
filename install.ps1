@@ -196,8 +196,8 @@ Copy-Item -R "D:\qbitbal\local\qBittorrent" $HOME\AppData\Local\
 Copy-Item -R "D:\qbitbal\roaming\qBittorrent" $HOME\AppData\Roaming\
 Start-Process -FilePath D:\ADVANCED_64bitCodecs\Launcher64.exe
 Invoke-WebRequest "https://winaero.com/downloads/winaerotweaker.zip" -Outfile $env:TEMP\winaerotweaker.zip
-Expand-Archive -Path env:TEMP\winaerotweaker.zip -DestinationPath $env:TEMP\winaerotweaker\SilentSetup.cmd
-Start-Process -FilePath $env:TEMP\winaerotweaker\Silent
+Expand-Archive -Path env:TEMP\winaerotweaker.zip -DestinationPath $env:TEMP\winaerotweaker\
+Start-Process -FilePath $env:TEMP\winaerotweaker\SilentSetup.cmd
 Add-EnvPath -Path "D:\mpv-x86_64-20210404-git-dd86f19" -Container Machine
 Copy-Item -R .\QTfiles64\* "C:\Program Files (x86)\foobar2000\encoders"
 cmd /c assoc .py=PythonFile
