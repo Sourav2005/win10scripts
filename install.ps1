@@ -66,6 +66,8 @@ $scoopbuckets = @(
 $chocoapps = @(
 	"qbittorrent",
 	"airexplorer",
+	"authotkey",
+	"eartrumpet",
 	"mkvtoolnix")
 	
 $wingetapps = @(
@@ -100,6 +102,7 @@ $wingetapps = @(
 	"Microsoft.VC++2015Redist-x64",
 	"Microsoft.VC++2015Redist-x86",
 	"hexchat",
+	"jackett.jackett",
 	"Github Desktop")
 
 # Chocolatey
@@ -220,7 +223,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-L
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
 $restart = Read-Host "Do you want to restart your pc?"
 if($restart -eq 'yes'){
-	
+	Restart-Computer -Force
 }else {
   exit
 }
