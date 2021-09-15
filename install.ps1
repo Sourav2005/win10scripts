@@ -42,7 +42,6 @@ $scoopapps = @(
 	"adb",
 	"aria2",
 	"atomicparsley",
-	"busybox",
 	"fd",
 	"fzf",
 	"gallery-dl",
