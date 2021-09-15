@@ -68,6 +68,7 @@ $chocoapps = @(
 	"eartrumpet",
 	"7zip",
 	"vscode",
+	"everything",
 	"mkvtoolnix")
 	
 $wingetapps = @(
@@ -93,7 +94,6 @@ $wingetapps = @(
 	"Powershell",
 	"subhra74.XtremeDownloadManager",
 	"Zoom.Zoom",
-	"voidtools.Everything",
 	"WinFsp.WinFsp",
 	"Microsoft.VC++2010Redist-x86",
 	"calibre.calibre",
