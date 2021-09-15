@@ -67,6 +67,7 @@ $chocoapps = @(
 	"autohotkey",
 	"eartrumpet",
 	"7zip",
+	"vscode",
 	"mkvtoolnix")
 	
 $wingetapps = @(
@@ -91,7 +92,6 @@ $wingetapps = @(
 	"PeterPawlowski.foobar2000",
 	"Powershell",
 	"subhra74.XtremeDownloadManager",
-	"Microsoft.visualstudiocode",
 	"Zoom.Zoom",
 	"voidtools.Everything",
 	"WinFsp.WinFsp",
@@ -174,6 +174,26 @@ Function Set-AssociateFileExtensions {
         $fileType = (cmd /c "assoc $extension")
         $fileType = $fileType.Split("=")[-1] 
         cmd /c "ftype $fileType=""$OpenAppPath"" ""%1"""
+    }
+}
+
+# vscode extensions
+$VSCodeExtensions = @(
+	'arcticicestudio.nord-visual-studio-code',
+	'ionutvmi.reg',
+	'ms-python.python',
+	'ms-python.vscode-pylance',
+	'ms-toolsai.jupyter',
+	'ms-toolsai.jupyter-keymap',
+	'ms-vscode-remote.remote-wsl',
+	'ms-vscode.powershell',
+	'PKief.material-icon-theme'
+)
+
+if ($null -ne (get-command 'code' -ErrorAction:SilentlyContinue)) {
+    Write-Host "Installing $($VSCodeExtensions.count) extensions to VS Code"
+    $VSCodeExtensions | ForEach-Object {
+        code --install-extension $_
     }
 }
 
