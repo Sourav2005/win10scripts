@@ -1,4 +1,4 @@
-# Useful variables
+﻿# Useful variables
 $tools = 'D:\Tools'
 $win10 = "$HOME\Documents\win10scripts"
 
@@ -65,7 +65,7 @@ $scoopbuckets = @(
 $chocoapps = @(
 	"qbittorrent",
 	"airexplorer",
-	"authotkey",
+	"autohotkey",
 	"eartrumpet",
 	"mkvtoolnix")
 	
