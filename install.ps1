@@ -38,7 +38,6 @@ Set-ItemProperty $RegPath "DefaultUsername" -Value "$DefaultUsername" -type Stri
 Set-ItemProperty $RegPath "DefaultPassword" -Value "$DefaultPassword" -type String
 
 $scoopapps = @(
-	"7zip",
 	"adb",
 	"aria2",
 	"atomicparsley",
@@ -67,10 +66,10 @@ $chocoapps = @(
 	"airexplorer",
 	"autohotkey",
 	"eartrumpet",
+	"7zip",
 	"mkvtoolnix")
 	
 $wingetapps = @(
-	"7zip",
 	"ditto",
 	"irfanview",
 	"musicbrainz.picard",
