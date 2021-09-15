@@ -113,7 +113,7 @@ foreach ($chocoapp in $chocoapps) {
 
 # Scoop
 Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
-git clone https://github.com/Sourav2005/win10scripts.git $HOME\Documents
+git clone https://github.com/Sourav2005/win10scripts.git $HOME\Documents\win10scripts
 foreach ($bucket in $scoopbuckets) {
 	scoop bucket add $bucket
 }
