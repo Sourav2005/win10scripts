@@ -191,7 +191,7 @@ Copy-Item "$win10\scripts\Hotkeys.ahk" "$HOME\AppData\Roaming\Microsoft\Windows\
 start-process -filepath D:\mpv-x86_64-20210404-git-dd86f19\installer\mpv-install.bat -verb runas
 Invoke-WebRequest "https://johann.loefflmann.net/downloads/jarfix.exe" -OutFile $env:TEMP\jarfix.exe
 start-process -FilePath "$env:TEMP\jarfix.exe" -argumentlist "/S" -wait
-mkdir $HOME\.config\rclone -Force ; Copy-Item $win10\scripts\rclone.conf $HOME\.config\rclone\rclone.conf -Force
+mkdir $HOME\.config\rclone -Force ; Copy-Item $tools\rclone.conf $HOME\.config\rclone\rclone.conf -Force
 Copy-Item -R "D:\qbitbal\local\qBittorrent" $HOME\AppData\Local\
 Copy-Item -R "D:\qbitbal\roaming\qBittorrent" $HOME\AppData\Roaming\
 Start-Process -FilePath D:\ADVANCED_64bitCodecs\Launcher64.exe
