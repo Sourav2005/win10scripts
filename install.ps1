@@ -91,7 +91,6 @@ $wingetapps = @(
 	"dev47apps.DroidCam",
 	"Microsoft.Teams",
 	"PeterPawlowski.foobar2000",
-	"Powershell",
 	"subhra74.XtremeDownloadManager",
 	"Zoom.Zoom",
 	"WinFsp.WinFsp",
@@ -103,12 +102,23 @@ $wingetapps = @(
 	"jackett.jackett",
 	"Github Desktop")
 
+$addtopaths = @(
+	"$env:ProgramFiles\Microsoft VS Code",
+	"$env:ProgramFiles\Git\cmd"
+)
+
 # Chocolatey
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 choco feature enable -n allowGlobalConfirmation
 choco install -y git -params '"/GitAndUnixToolsOnPath /WindowsTerminal"'
+choco install -y powershell-core --install-arguments="ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1"
 foreach ($chocoapp in $chocoapps) {
 	choco install -y $chocoapp
+}
+
+# Add to Path
+foreach ($addtopath in $addtopaths) {
+	$env:Path += ";$addtopath"
 }
 
 # Scoop
@@ -125,6 +135,12 @@ foreach ($scoopapp in $scoopapps) {
 foreach ($wingetapp in $wingetapps) {
 	winget install $wingetapp
 }
+
+# ArchWSL
+$asset = Invoke-RestMethod -Method Get -Uri 'https://api.github.com/repos/yuk7/ArchWSL/releases/latest' | ForEach-Object assets | Where-Object name -like "*.zip"
+Invoke-WebRequest -Uri $asset.browser_download_url -OutFile C:\Arch.zip
+Expand-Archive -Path C:\Arch.zip -DestinationPath C:\ArchLinux
+Remove-Item C:\Arch.zip -Force
 
 #Useful Functions:
 function Add-EnvPath {
@@ -177,36 +193,6 @@ Function Set-AssociateFileExtensions {
     }
 }
 
-# vscode extensions
-$VSCodeExtensions = @(
-	'arcticicestudio.nord-visual-studio-code',
-	'ionutvmi.reg',
-	'ms-python.python',
-	'ms-python.vscode-pylance',
-	'ms-toolsai.jupyter',
-	'ms-toolsai.jupyter-keymap',
-	'ms-vscode-remote.remote-wsl',
-	'ms-vscode.powershell',
-	'PKief.material-icon-theme'
-)
-
-if ($null -ne (get-command 'code' -ErrorAction:SilentlyContinue)) {
-    Write-Host "Installing $($VSCodeExtensions.count) extensions to VS Code"
-    $VSCodeExtensions | ForEach-Object {
-        code --install-extension $_
-    }
-}
-
-# Privacy
-cmd /c copy $env:windir\System32\drivers\etc\hosts+$win10\scripts\hosts $env:windir\System32\drivers\etc\hosts
-Invoke-WebRequest "https://wpd.app/get/latest.zip" -Outfile $env:TEMP\wpd.zip
-Expand-Archive -Path $env:TEMP\wpd.zip -DestinationPath $env:TEMP\wpd
-Start-Process -FilePath $env:TEMP\wpd\WPD.exe -ArgumentList "-recommended -close" -Wait
-New-Item -Path $Profile -Type File –Force
-mkdir -Path $HOME\Documents\Powershell -Force ; Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $HOME\Documents\Powershell\
-Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $profile
-Invoke-Expression $win10\scripts\Sophia\install.ps1
-
 # Setting up
 reg import $HOME\scoop\apps\python\current\install-pep-514.reg
 Copy-Item "$win10\scripts\Hotkeys.ahk" "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
@@ -237,11 +223,15 @@ Copy-Item "D:\Games\Max Payne duology\Max Payne\MaxPayne.exe.lnk" "C:\ProgramDat
 Copy-Item "D:\Games\Max Payne duology\Max Payne 2 The Fall of Max Payne\MaxPayne2.exe.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Max Payne 2.lnk"
 Copy-Item "D:\Games\The House of the Dead 2\House of the Dead 2.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\House of the Dead 2.lnk"
 reg import "$win10\scripts\irc.reg"
+
+# Privacy
+cmd /c copy $env:windir\System32\drivers\etc\hosts+$win10\scripts\hosts $env:windir\System32\drivers\etc\hosts
+Invoke-WebRequest "https://wpd.app/get/latest.zip" -Outfile $env:TEMP\wpd.zip
+Expand-Archive -Path $env:TEMP\wpd.zip -DestinationPath $env:TEMP\wpd
+Start-Process -FilePath $env:TEMP\wpd\WPD.exe -ArgumentList "-recommended -close" -Wait
+New-Item -Path $Profile -Type File –Force
+mkdir -Path $HOME\Documents\Powershell -Force ; Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $HOME\Documents\Powershell\
+Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $profile
+Invoke-Expression $win10\scripts\Sophia\install.ps1
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-$restart = Read-Host "Do you want to restart your pc?"
-if($restart -eq 'yes'){
-	Restart-Computer -Force
-}else {
-  exit
-}
