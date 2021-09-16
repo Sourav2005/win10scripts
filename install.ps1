@@ -69,6 +69,8 @@ $chocoapps = @(
 	"7zip",
 	"vscode",
 	"everything",
+	"foobar2000",
+	"freeencoderpack",
 	"mkvtoolnix")
 	
 $wingetapps = @(
@@ -90,7 +92,6 @@ $wingetapps = @(
 	"erengy.Taiga",
 	"dev47apps.DroidCam",
 	"Microsoft.Teams",
-	"PeterPawlowski.foobar2000",
 	"subhra74.XtremeDownloadManager",
 	"Zoom.Zoom",
 	"WinFsp.WinFsp",
@@ -207,11 +208,10 @@ Invoke-WebRequest "https://winaero.com/downloads/winaerotweaker.zip" -Outfile $e
 Expand-Archive -Path $env:TEMP\winaerotweaker.zip -DestinationPath $env:TEMP\winaerotweaker\
 Start-Process -FilePath $env:TEMP\winaerotweaker\SilentSetup.cmd
 Add-EnvPath -Path "D:\mpv-x86_64-20210404-git-dd86f19" -Container Machine
-Copy-Item -R .\QTfiles64\* "C:\Program Files (x86)\foobar2000\encoders"
+Copy-Item -R $tools\QTfiles64\* "C:\Program Files (x86)\foobar2000\encoders"
 cmd /c assoc .py=PythonFile
 cmd /c assoc .json=jsonfile
 Set-AssociateFileExtensions -FileExtensions .py,.txt,.ps1,.json -OpenAppPath 'C:\Program Files\Notepad++\notepad++.exe'
-Start-Process -FilePath $tools\Free_Encoder_Pack-2021-01-26.exe -ArgumentList "/S" -wait
 Start-Process -Filepath "$tools\soulseek-2019-7-22.exe" -ArgumentList "/Silent" -wait
 Start-Process -FilePath $tools\JDownloader2Setup_win_x64_incl_jre11.exe -argumentlist "-q" -wait
 Copy-Item -R $tools\pix\* $HOME\Pictures\ -Force
