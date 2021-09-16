@@ -71,6 +71,8 @@ $chocoapps = @(
 	"everything",
 	"foobar2000",
 	"freeencoderpack",
+	"powertoys",
+	"windirstat",
 	"mkvtoolnix")
 	
 $wingetapps = @(
@@ -216,7 +218,7 @@ Start-Process -Filepath "$tools\soulseek-2019-7-22.exe" -ArgumentList "/Silent" 
 Start-Process -FilePath $tools\JDownloader2Setup_win_x64_incl_jre11.exe -argumentlist "-q" -wait
 Copy-Item -R $tools\pix\* $HOME\Pictures\ -Force
 Copy-Item -R "$tools\copytodocuments\*" $HOME\Documents\ -Force
-start-process -filepath "$tools\WFDownloaderApp-BETA-64bit.exe"
+start-process -filepath "$tools\WFDownloaderApp-BETA-64bit.exe" -ArgumentList "/SILENT" -Wait
 mkdir -Force "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games"
 Copy-Item "D:\Games\Project_IGI_RIP\PC\IGI.exe.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\IGI.lnk"
 Copy-Item "D:\Games\Max Payne duology\Max Payne\MaxPayne.exe.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Max Payne.lnk"
