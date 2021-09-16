@@ -73,6 +73,7 @@ $chocoapps = @(
 	"freeencoderpack",
 	"powertoys",
 	"windirstat",
+	"vlc",
 	"mkvtoolnix")
 	
 $wingetapps = @(
