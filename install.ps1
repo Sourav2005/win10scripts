@@ -19,7 +19,7 @@ Write-Host "Checking winget..."
 # Check if winget is installed
 if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe){
     'Winget Already Installed'
-}  
+}
 else{
     # Installing winget from the Microsoft Store
 	Write-Host "Winget not found, installing it now."
@@ -57,7 +57,7 @@ $scoopapps = @(
 	"gsudo",
 	"wget",
 	"adoptopenjdk-hotspot-jre")
-	
+
 $scoopbuckets = @(
 	"java")
 
@@ -75,7 +75,7 @@ $chocoapps = @(
 	"windirstat",
 	"vlc",
 	"mkvtoolnix")
-	
+
 $wingetapps = @(
 	"ditto",
 	"irfanview",
@@ -182,17 +182,17 @@ Function Set-AssociateFileExtensions {
     (
         [Parameter(Mandatory = $true)]
         [String[]] $FileExtensions,
-        
+
         [Parameter(Mandatory = $true)]
         [String] $OpenAppPath
-    ) 
+    )
 
     if (-not (Test-Path $OpenAppPath)) {
         throw "$OpenAppPath does not exist."
-    }   
+    }
     foreach ($extension in $FileExtensions) {
         $fileType = (cmd /c "assoc $extension")
-        $fileType = $fileType.Split("=")[-1] 
+        $fileType = $fileType.Split("=")[-1]
         cmd /c "ftype $fileType=""$OpenAppPath"" ""%1"""
     }
 }
@@ -235,6 +235,9 @@ Start-Process -FilePath $env:TEMP\wpd\WPD.exe -ArgumentList "-recommended -close
 New-Item -Path $Profile -Type File –Force
 mkdir -Path $HOME\Documents\Powershell -Force ; Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $HOME\Documents\Powershell\
 Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $profile
+Write-Host "Running O&OShutup10 with custom settings"
+Invoke-WebRequest "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -OutFile $env:TEMP\OOSU10.exe
+cmd /c $env:TEMP\OOSU10.exe $win10\scripts\ooshutup10.cfg /quiet
 Invoke-Expression $win10\scripts\Sophia\install.ps1
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
