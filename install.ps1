@@ -103,8 +103,6 @@ $wingetapps = @(
 	"Microsoft.VC++2015Redist-x64",
 	"Microsoft.VC++2015Redist-x86",
 	"hexchat",
-	"brave",
-	"edgedeflector",
 	"jackett.jackett",
 	"Github Desktop")
 
