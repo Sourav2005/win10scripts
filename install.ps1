@@ -97,6 +97,7 @@ $wingetapps = @(
 	"Microsoft.Teams",
 	"subhra74.XtremeDownloadManager",
 	"Zoom.Zoom",
+	'miktex --override "--unattended --auto-install=yes"',
 	"WinFsp.WinFsp",
 	"Microsoft.VC++2010Redist-x86",
 	"calibre.calibre",
