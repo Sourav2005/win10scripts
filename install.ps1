@@ -102,6 +102,7 @@ $wingetapps = @(
 	"WinFsp.WinFsp",
 	"Microsoft.VC++2010Redist-x86",
 	"calibre.calibre",
+	"Freetube",
 	"jackett.jackett",
 	"Github Desktop")
 
