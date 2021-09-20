@@ -69,6 +69,7 @@ $chocoapps = @(
 	"7zip",
 	"vscode",
 	"everything",
+	"hexchat",
 	"foobar2000",
 	"freeencoderpack",
 	"powertoys",
@@ -101,9 +102,6 @@ $wingetapps = @(
 	"WinFsp.WinFsp",
 	"Microsoft.VC++2010Redist-x86",
 	"calibre.calibre",
-	"Microsoft.VC++2015Redist-x64",
-	"Microsoft.VC++2015Redist-x86",
-	"hexchat",
 	"jackett.jackett",
 	"Github Desktop")
 
