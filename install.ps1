@@ -139,6 +139,7 @@ foreach ($scoopapp in $scoopapps) {
 foreach ($wingetapp in $wingetapps) {
 	winget install $wingetapp
 }
+winget install "Sublime Text 4" --override '/VERYSILENT /NORESTART /TASKS="contextentry"'
 
 # ArchWSL
 $asset = Invoke-RestMethod -Method Get -Uri 'https://api.github.com/repos/yuk7/ArchWSL/releases/latest' | ForEach-Object assets | Where-Object name -like "*.zip"
