@@ -98,7 +98,6 @@ $wingetapps = @(
 	"Microsoft.Teams",
 	"subhra74.XtremeDownloadManager",
 	"Zoom.Zoom",
-	'miktex --override "--unattended --auto-install=yes"',
 	"WinFsp.WinFsp",
 	"Microsoft.VC++2010Redist-x86",
 	"calibre.calibre",
@@ -140,6 +139,7 @@ foreach ($wingetapp in $wingetapps) {
 	winget install $wingetapp
 }
 winget install "Sublime Text 4" --override '/VERYSILENT /NORESTART /TASKS="contextentry"'
+winget install miktex --override "--unattended --auto-install=yes"
 
 # ArchWSL
 $asset = Invoke-RestMethod -Method Get -Uri 'https://api.github.com/repos/yuk7/ArchWSL/releases/latest' | ForEach-Object assets | Where-Object name -like "*.zip"
@@ -217,7 +217,7 @@ cmd /c assoc .py=PythonFile
 cmd /c assoc .json=jsonfile
 Set-AssociateFileExtensions -FileExtensions .py,.txt,.ps1,.json -OpenAppPath 'C:\Program Files\Notepad++\notepad++.exe'
 Start-Process -Filepath "$tools\soulseek-2019-7-22.exe" -ArgumentList "/Silent" -wait
-Start-Process -FilePath $tools\JDownloader2Setup_win_x64_incl_jre11.exe -argumentlist "-q" -wait
+Start-Process -FilePath $tools\JDownloader2Setup_win_x64_incl_jre11.exe -argumentlist "-q"
 Copy-Item -R $tools\pix\* $HOME\Pictures\ -Force
 Copy-Item -R "$tools\copytodocuments\*" $HOME\Documents\ -Force
 start-process -filepath "$tools\WFDownloaderApp-BETA-64bit.exe" -ArgumentList "/SILENT" -Wait
