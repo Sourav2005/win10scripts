@@ -241,4 +241,4 @@ cmd /c $env:TEMP\OOSU10.exe $win10\scripts\ooshutup10.cfg /quiet
 Invoke-Expression $win10\scripts\Sophia\install.ps1
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-cmd /c sc stop "wsearch" && sc config "wsearch" start=disabled
+cmd /c sc stop "wsearch" `&`& sc config "wsearch" start=disabled
