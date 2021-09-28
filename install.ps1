@@ -216,7 +216,8 @@ Add-EnvPath -Path "D:\mpv-x86_64-20210404-git-dd86f19" -Container Machine
 Copy-Item -R $tools\QTfiles64\* "C:\Program Files (x86)\foobar2000\encoders"
 cmd /c assoc .py=PythonFile
 cmd /c assoc .json=jsonfile
-Set-AssociateFileExtensions -FileExtensions .py,.txt,.ps1,.json -OpenAppPath 'C:\Program Files\Notepad++\notepad++.exe'
+Set-AssociateFileExtensions -FileExtensions .py,.ps1,.json -OpenAppPath "$env:ProgramFiles\Sublime Text\sublime_text.exe"
+Set-AssociateFileExtensions -FileExtensions .txt "$env:ProgramFiles\Notepad++\notepad++.exe"
 Start-Process -Filepath "$tools\soulseek-2019-7-22.exe" -ArgumentList "/Silent" -wait
 Start-Process -FilePath $tools\JDownloader2Setup_win_x64_incl_jre11.exe -argumentlist "-q"
 Copy-Item -R $tools\pix\* $HOME\Pictures\ -Force
