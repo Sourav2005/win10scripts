@@ -75,11 +75,12 @@ $chocoapps = @(
 	"powertoys",
 	"windirstat",
 	"vlc",
+	"irfanview",
+	"irfanviewplugins",
 	"mkvtoolnix")
 
 $wingetapps = @(
 	"ditto",
-	"irfanview",
 	"musicbrainz.picard",
 	"microsoft.edgewebview2runtime",
 	"microsoft.windowsterminal",
