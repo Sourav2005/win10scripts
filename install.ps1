@@ -104,6 +104,7 @@ $wingetapps = @(
 	"calibre.calibre",
 	"Freetube",
 	"jackett.jackett",
+	"vcxsrv"
 	"Github Desktop")
 
 $addtopaths = @(
@@ -202,6 +203,7 @@ Function Set-AssociateFileExtensions {
 # Setting up
 reg import $HOME\scoop\apps\python\current\install-pep-514.reg
 Copy-Item "$win10\scripts\Hotkeys.ahk" "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
+Copy-Item "$win10\scripts\config.xlaunch" "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 start-process -filepath D:\mpv-x86_64-20210404-git-dd86f19\installer\mpv-install.bat -verb runas
 Invoke-WebRequest "https://johann.loefflmann.net/downloads/jarfix.exe" -OutFile $env:TEMP\jarfix.exe
 start-process -FilePath "$env:TEMP\jarfix.exe" -argumentlist "/S" -wait
