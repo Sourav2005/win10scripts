@@ -239,7 +239,7 @@ Set-AssociateFileExtensions -FileExtensions .py,.ps1,.json -OpenAppPath "$env:Pr
 Set-AssociateFileExtensions -FileExtensions .txt -OpenAppPath "$env:ProgramFiles\Notepad++\notepad++.exe"
 Start-Process -Filepath "$tools\soulseek-2019-7-22.exe" -ArgumentList "/Silent" -wait
 Start-Process -FilePath $tools\JDownloader2Setup_win_x64_incl_jre11.exe -argumentlist "-q"
-Copy-Item -R $tools\pix\* $HOME\Pictures\ -Force
+#Copy-Item -R $tools\pix\* $HOME\Pictures\ -Force
 Copy-Item -R "$tools\copytodocuments\*" $HOME\Documents\ -Force
 start-process -filepath "$tools\WFDownloaderApp-BETA-64bit.exe" -ArgumentList "/SILENT" -Wait
 mkdir -Force "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games"
