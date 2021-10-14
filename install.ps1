@@ -40,13 +40,11 @@ Set-ItemProperty $RegPath "DefaultPassword" -Value "$DefaultPassword" -type Stri
 $scoopapps = @(
 	"adb",
 	"aria2",
-	"atomicparsley",
 	"fd",
 	"fzf",
 	"gallery-dl",
 	"go",
 	"ffmpeg",
-	"youtube-dl",
 	"neovim",
 	"nodejs",
 	"poppler",
@@ -56,6 +54,7 @@ $scoopapps = @(
 	"python",
 	"gsudo",
 	"wget",
+	"yt-dlp",
 	"adoptopenjdk-hotspot-jre")
 
 $scoopbuckets = @(
@@ -65,7 +64,7 @@ $chocoapps = @(
 	"qbittorrent",
 	"airexplorer",
 	"autohotkey",
-	"eartrumpet",
+#	"eartrumpet",
 	"7zip",
 	"vscode",
 	"everything",
@@ -83,16 +82,16 @@ $chocoapps = @(
 $wingetapps = @(
 	"ditto",
 	"musicbrainz.picard",
-	"microsoft.edgewebview2runtime",
+#	"microsoft.edgewebview2runtime",
 	"microsoft.windowsterminal",
 	"mp3tag.mp3tag",
 	"Notepad++",
 	"ShareX",
-	"megasync",
+#	"megasync",
 	"OBSProject.OBSStudio",
-	"ProtonTechnologies.ProtonVPN",
+#	"ProtonTechnologies.ProtonVPN",
 	"SpeedCrunch.SpeedCrunch",
-	"Valve.Steam",
+#	"Valve.Steam",
 	"SumatraPDF.SumatraPDF",
 	"erengy.Taiga",
 	"dev47apps.DroidCam",
@@ -101,11 +100,11 @@ $wingetapps = @(
 	"Zoom.Zoom",
 	"WinFsp.WinFsp",
 	"Microsoft.VC++2010Redist-x86",
-	"calibre.calibre",
-	"Freetube",
+#	"calibre.calibre",
+#	"Freetube",
 	"jackett.jackett",
-	"vcxsrv"
-	"Github Desktop")
+#	"vcxsrv"
+#	"Github Desktop")
 
 $addtopaths = @(
 	"$env:ProgramFiles\Microsoft VS Code",
@@ -116,7 +115,7 @@ $addtopaths = @(
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 choco feature enable -n allowGlobalConfirmation
 choco install -y git -params '"/GitAndUnixToolsOnPath /WindowsTerminal"'
-choco install -y powershell-core --install-arguments="ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1"
+#choco install -y powershell-core --install-arguments="ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1"
 foreach ($chocoapp in $chocoapps) {
 	choco install -y $chocoapp
 }
@@ -141,13 +140,13 @@ foreach ($wingetapp in $wingetapps) {
 	winget install $wingetapp
 }
 winget install "Sublime Text 4" --override '/VERYSILENT /NORESTART /TASKS="contextentry"'
-winget install miktex --override "--unattended --auto-install=yes"
+#winget install miktex --override "--unattended --auto-install=yes"
 
 # ArchWSL
-$asset = Invoke-RestMethod -Method Get -Uri 'https://api.github.com/repos/yuk7/ArchWSL/releases/latest' | ForEach-Object assets | Where-Object name -like "*.zip"
-Invoke-WebRequest -Uri $asset.browser_download_url -OutFile C:\Arch.zip
-Expand-Archive -Path C:\Arch.zip -DestinationPath C:\ArchLinux
-Remove-Item C:\Arch.zip -Force
+#$asset = Invoke-RestMethod -Method Get -Uri 'https://api.github.com/repos/yuk7/ArchWSL/releases/latest' | ForEach-Object assets | Where-Object name -like "*.zip"
+#Invoke-WebRequest -Uri $asset.browser_download_url -OutFile C:\Arch.zip
+#Expand-Archive -Path C:\Arch.zip -DestinationPath C:\ArchLinux
+#Remove-Item C:\Arch.zip -Force
 
 #Useful Functions:
 function Add-EnvPath {
@@ -203,7 +202,7 @@ Function Set-AssociateFileExtensions {
 # Setting up
 reg import $HOME\scoop\apps\python\current\install-pep-514.reg
 Copy-Item "$win10\scripts\Hotkeys.ahk" "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
-Copy-Item "$win10\scripts\config.xlaunch" "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
+#Copy-Item "$win10\scripts\config.xlaunch" "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 start-process -filepath D:\mpv-x86_64-20210404-git-dd86f19\installer\mpv-install.bat -verb runas
 Invoke-WebRequest "https://johann.loefflmann.net/downloads/jarfix.exe" -OutFile $env:TEMP\jarfix.exe
 start-process -FilePath "$env:TEMP\jarfix.exe" -argumentlist "/S" -wait
@@ -243,6 +242,6 @@ Write-Host "Running O&OShutup10 with custom settings"
 Invoke-WebRequest "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -OutFile $env:TEMP\OOSU10.exe
 cmd /c $env:TEMP\OOSU10.exe $win10\scripts\ooshutup10.cfg /quiet
 Invoke-Expression $win10\scripts\Sophia\install.ps1
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+#Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
+#Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
 cmd /c sc stop "wsearch" `&`& sc config "wsearch" start=disabled
