@@ -38,7 +38,7 @@ Set-ItemProperty $RegPath "DefaultUsername" -Value "$DefaultUsername" -type Stri
 Set-ItemProperty $RegPath "DefaultPassword" -Value "$DefaultPassword" -type String
 
 # Privacy
-cmd /c copy $env:windir\System32\drivers\etc\hosts+$win10\scripts\hosts $env:windir\System32\drivers\etc\hosts
+cmd /c copy $env:windir\System32\drivers\etc\hosts+$PSScriptRoot\scripts\hosts $env:windir\System32\drivers\etc\hosts
 Invoke-WebRequest "https://wpd.app/get/latest.zip" -Outfile $env:TEMP\wpd.zip
 Expand-Archive -Path $env:TEMP\wpd.zip -DestinationPath $env:TEMP\wpd
 Start-Process -FilePath $env:TEMP\wpd\WPD.exe -ArgumentList "-recommended -close" -Wait
