@@ -3,9 +3,9 @@ $tools = 'D:\Tools'
 $win10 = "$HOME\Documents\win10scripts"
 
 # Disable Windows Defender
-Add-MpPreference -exclusionpath "$tools\dControl"
-timeout 10 /nobreak
-cmd /c "$tools\dControl\dControl.exe" /D
+#Add-MpPreference -exclusionpath "$tools\dControl"
+#timeout 10 /nobreak
+#cmd /c "$tools\dControl\dControl.exe" /D
 
 # Change Time Zone
 cmd /c tzutil /s "India Standard Time"
@@ -31,11 +31,27 @@ else{
 
 # Windows Auto Logon
 $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
-$DefaultUsername = "Catharsis"
+$DefaultUsername = "catharsis"
 $DefaultPassword = "2005"
 Set-ItemProperty $RegPath "AutoAdminLogon" -Value "1" -type String
 Set-ItemProperty $RegPath "DefaultUsername" -Value "$DefaultUsername" -type String
 Set-ItemProperty $RegPath "DefaultPassword" -Value "$DefaultPassword" -type String
+
+# Privacy
+cmd /c copy $env:windir\System32\drivers\etc\hosts+$win10\scripts\hosts $env:windir\System32\drivers\etc\hosts
+Invoke-WebRequest "https://wpd.app/get/latest.zip" -Outfile $env:TEMP\wpd.zip
+Expand-Archive -Path $env:TEMP\wpd.zip -DestinationPath $env:TEMP\wpd
+Start-Process -FilePath $env:TEMP\wpd\WPD.exe -ArgumentList "-recommended -close" -Wait
+New-Item -Path $Profile -Type File –Force
+mkdir -Path $HOME\Documents\Powershell -Force ; Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $HOME\Documents\Powershell\
+Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $profile
+Write-Host "Running O&OShutup10 with custom settings"
+Invoke-WebRequest "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -OutFile $env:TEMP\OOSU10.exe
+cmd /c $env:TEMP\OOSU10.exe $win10\scripts\ooshutup10.cfg /quiet
+Invoke-Expression $win10\scripts\Sophia\install.ps1
+#Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
+#Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+cmd /c sc stop "wsearch" `&`& sc config "wsearch" start=disabled
 
 $scoopapps = @(
 	"adb",
@@ -72,7 +88,7 @@ $chocoapps = @(
 	"foobar2000",
 	"imagemagick",
 	"freeencoderpack",
-	"powertoys",
+#	"powertoys",
 	"windirstat",
 	"vlc",
 	"irfanview",
@@ -100,6 +116,7 @@ $wingetapps = @(
 	"Zoom.Zoom",
 	"WinFsp.WinFsp",
 	"Microsoft.VC++2010Redist-x86",
+	"powertoys",
 #	"calibre.calibre",
 #	"Freetube",
 	"jackett.jackett",
@@ -136,6 +153,7 @@ foreach ($scoopapp in $scoopapps) {
 }
 
 # Winget
+winget source remove -n msstore
 foreach ($wingetapp in $wingetapps) {
 	winget install $wingetapp
 }
@@ -229,19 +247,3 @@ Copy-Item "D:\Games\Project_IGI_RIP\PC\IGI.exe.lnk" "C:\ProgramData\Microsoft\Wi
 Copy-Item "D:\Games\Max Payne duology\Max Payne\MaxPayne.exe.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Max Payne.lnk"
 Copy-Item "D:\Games\Max Payne duology\Max Payne 2 The Fall of Max Payne\MaxPayne2.exe.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Max Payne 2.lnk"
 Copy-Item "D:\Games\The House of the Dead 2\House of the Dead 2.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\House of the Dead 2.lnk"
-
-# Privacy
-cmd /c copy $env:windir\System32\drivers\etc\hosts+$win10\scripts\hosts $env:windir\System32\drivers\etc\hosts
-Invoke-WebRequest "https://wpd.app/get/latest.zip" -Outfile $env:TEMP\wpd.zip
-Expand-Archive -Path $env:TEMP\wpd.zip -DestinationPath $env:TEMP\wpd
-Start-Process -FilePath $env:TEMP\wpd\WPD.exe -ArgumentList "-recommended -close" -Wait
-New-Item -Path $Profile -Type File –Force
-mkdir -Path $HOME\Documents\Powershell -Force ; Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $HOME\Documents\Powershell\
-Copy-Item $win10\scripts\Microsoft.PowerShell_profile.ps1 $profile
-Write-Host "Running O&OShutup10 with custom settings"
-Invoke-WebRequest "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -OutFile $env:TEMP\OOSU10.exe
-cmd /c $env:TEMP\OOSU10.exe $win10\scripts\ooshutup10.cfg /quiet
-Invoke-Expression $win10\scripts\Sophia\install.ps1
-#Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
-#Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-cmd /c sc stop "wsearch" `&`& sc config "wsearch" start=disabled
