@@ -45,6 +45,7 @@ Start-Process -FilePath $env:TEMP\wpd\WPD.exe -ArgumentList "-recommended -close
 New-Item -Path $Profile -Type File –Force
 mkdir -Path $HOME\Documents\Powershell -Force ; Copy-Item $PSScriptRoot\scripts\Microsoft.PowerShell_profile.ps1 $HOME\Documents\Powershell\
 Copy-Item $PSScriptRoot\scripts\Microsoft.PowerShell_profile.ps1 $profile
+Unblock-File $PROFILE
 Write-Host "Running O&OShutup10 with custom settings"
 Invoke-WebRequest "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -OutFile $env:TEMP\OOSU10.exe
 cmd /c $env:TEMP\OOSU10.exe $PSScriptRoot\scripts\ooshutup10.cfg /quiet
@@ -59,11 +60,9 @@ $scoopapps = @(
 	"fd",
 	"fzf",
 	"gallery-dl",
-	"go",
 	"ffmpeg",
 	"neovim",
-	"nodejs",
-	"poppler",
+#	"poppler",
 	"rclone",
 	"scrcpy",
 	"speedtest-cli",
@@ -119,9 +118,8 @@ $wingetapps = @(
 	"powertoys",
 #	"calibre.calibre",
 #	"Freetube",
-	"jackett.jackett",
-#	"vcxsrv"
-#	"Github Desktop")
+#   "Github Desktop",
+	"jackett.jackett")
 
 $addtopaths = @(
 	"$env:ProgramFiles\Microsoft VS Code",
