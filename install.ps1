@@ -11,7 +11,7 @@ $win10 = "$HOME\Documents\win10scripts"
 cmd /c tzutil /s "India Standard Time"
 
 # Install Drivers
-cmd /c D:\DoubleDriver\ddc.exe r /source:"D:\Windows 10 Drivers\H61MLV2 30-06-2021 21-27-44\MEDIA"
+pnputil /add-driver "D:\Drivers\*.inf" /subdirs /install
 
 # Better way to install winget
 # GUI Specs
